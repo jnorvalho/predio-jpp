@@ -1,26 +1,3270 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --navy: #07182f;
+  --building: #10294a;
+  --building-dark: #0b203b;
+  --gold: #c9a227;
+  --gold-light: #e1c45a;
+  --window: #173b62;
+  --street: #050d18;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--navy);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  margin: 0;
+  background: var(--navy);
+  color: white;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =========================================================
+   PRÉDIO DO JPP — FACHADA
+   ========================================================= */
+
+.building {
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* =========================================================
+   TOPO / ROOFTOP
+   ========================================================= */
+
+.roof {
+  position: relative;
+  width: 100%;
+  height: 76px;
+  background:
+    linear-gradient(
+      to bottom,
+      #16365d 0%,
+      #10294a 100%
+    );
+  border: 2px solid rgba(201, 162, 39, 0.55);
+  border-bottom: 0;
+  border-radius: 14px 14px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.roof::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 38px,
+      rgba(255, 255, 255, 0.025) 39px,
+      transparent 40px
+    );
+  pointer-events: none;
+}
+
+.roof-sign {
+  position: relative;
+  z-index: 1;
+  padding: 8px 18px;
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  background: rgba(5, 13, 24, 0.5);
+  color: #c9a227;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-align: center;
+}
+
+/* =========================================================
+   CORPO DO PRÉDIO
+   ========================================================= */
+
+.building-body {
+  width: 100%;
+  background: #10294a;
+  border-left: 2px solid rgba(201, 162, 39, 0.55);
+  border-right: 2px solid rgba(201, 162, 39, 0.55);
+}
+
+/* =========================================================
+   CADA ANDAR
+   ========================================================= */
+
+.building-floor {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 108px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-bottom: 2px solid rgba(201, 162, 39, 0.35);
+  background:
+    linear-gradient(
+      180deg,
+      #16365d 0%,
+      #10294a 100%
+    );
+  color: white;
+  text-align: left;
+  overflow: hidden;
+  appearance: none;
+  transition:
+    background 0.2s ease,
+    filter 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* =========================================================
+   JANELAS
+   ========================================================= */
+
+.floor-windows {
+  position: absolute;
+  inset: 12px 12px auto;
+  height: 34px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 7px;
+  pointer-events: none;
+}
+
+.floor-windows span {
+  display: block;
+  height: 34px;
+  border: 1px solid rgba(201, 162, 39, 0.18);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(38, 88, 135, 0.55),
+      rgba(13, 35, 64, 0.85)
+    );
+  box-shadow:
+    inset 0 0 8px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================================================
+   CONTEÚDO DO ANDAR
+   ========================================================= */
+
+.floor-content {
+  position: relative;
+  z-index: 2;
+  min-height: 108px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 45px 18px 13px;
+}
+
+.floor-icon {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(201, 162, 39, 0.5);
+  border-radius: 10px;
+  background: rgba(5, 13, 24, 0.35);
+  color: #c9a227;
+}
+
+.floor-info {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.floor-level {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.floor-title {
+  margin-top: 2px;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: white;
+}
+
+.floor-status {
+  margin-top: 5px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.floor-status-open {
+  color: #c9a227;
+}
+
+.floor-status-locked {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.floor-availability {
+  margin-top: 3px;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.floor-door {
+  flex: 0 0 auto;
+  color: #c9a227;
+}
+
+/* =========================================================
+   VARANDA
+   ========================================================= */
+
+.balcony {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 5px;
+  background: #0b203b;
+  border-top: 1px solid rgba(201, 162, 39, 0.28);
+  pointer-events: none;
+}
+
+/* =========================================================
+   PISOS DISPONÍVEIS / BLOQUEADOS
+   ========================================================= */
+
+.available-floor {
+  cursor: pointer;
+}
+
+.available-floor:hover {
+  background:
+    linear-gradient(
+      180deg,
+      #1b426d 0%,
+      #132f53 100%
+    );
+}
+
+.available-floor:active {
+  transform: scale(0.995);
+}
+
+.available-floor .floor-icon {
+  border-color: rgba(201, 162, 39, 0.7);
+}
+
+.locked-floor {
+  cursor: not-allowed;
+  filter: saturate(0.45);
+}
+
+.locked-floor .floor-windows {
+  opacity: 0.18;
+}
+
+.locked-floor .floor-icon {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.35);
+  background: rgba(5, 13, 24, 0.75);
+}
+
+.locked-floor .floor-title {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.locked-floor .floor-door {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* =========================================================
+   R/C
+   ========================================================= */
+
+.ground-floor {
+  min-height: 118px;
+  background:
+    linear-gradient(
+      180deg,
+      #173b62 0%,
+      #10294a 100%
+    );
+}
+
+.ground-floor .floor-content {
+  min-height: 118px;
+  padding-bottom: 30px;
+}
+
+.ground-floor .floor-door {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  z-index: 4;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(201, 162, 39, 0.65);
+  border-radius: 4px 4px 0 0;
+  background: #07182f;
+  color: #c9a227;
+}
+
+/* A porta do R/C fica centrada */
+.ground-floor .floor-content {
+  position: relative;
+}
+
+.ground-floor .floor-icon {
+  margin-bottom: 4px;
+}
+
+/* =========================================================
+   ENTRADA
+   ========================================================= */
+
+.street {
+  position: relative;
+  width: 100%;
+  height: 62px;
+  background: #0b203b;
+  border-left: 2px solid rgba(201, 162, 39, 0.55);
+  border-right: 2px solid rgba(201, 162, 39, 0.55);
+  border-bottom: 2px solid rgba(201, 162, 39, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.street::before,
+.street::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background: rgba(201, 162, 39, 0.3);
+}
+
+.street::before {
+  left: 0;
+}
+
+.street::after {
+  right: 0;
+}
+
+.entrance {
+  position: relative;
+  z-index: 2;
+  min-width: 130px;
+  height: 100%;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: #07182f;
+  border-left: 1px solid rgba(201, 162, 39, 0.45);
+  border-right: 1px solid rgba(201, 162, 39, 0.45);
+  color: #c9a227;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.entrance-door {
+  width: 30px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  border-bottom: 0;
+  border-radius: 4px 4px 0 0;
+  background: #10294a;
+  color: #c9a227;
+}
+
+/* =========================================================
+   CAVE
+   ========================================================= */
+
+.basement-floor {
+  min-height: 108px;
+  border-bottom: 0;
+  border-radius: 0 0 14px 14px;
+  background:
+    linear-gradient(
+      180deg,
+      #0b203b 0%,
+      #07182f 100%
+    );
+}
+
+.basement-floor .floor-windows {
+  opacity: 0.55;
+}
+
+.basement-floor .floor-content {
+  min-height: 108px;
+}
+
+.basement-floor .balcony {
+  display: none;
+}
+
+.basement-floor .floor-icon {
+  border-color: rgba(201, 162, 39, 0.55);
+}
+
+/* =========================================================
+   ESTADO BLOQUEADO DA CAVE
+   ========================================================= */
+
+.basement-floor.locked-floor {
+  filter: saturate(0.35);
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .building {
+    max-width: 100%;
+  }
+
+  .building-floor {
+    min-height: 104px;
+  }
+
+  .floor-content {
+    min-height: 104px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .floor-icon {
+    flex-basis: 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .floor-title {
+    font-size: 14px;
+  }
+
+  .floor-windows {
+    gap: 5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .floor-content {
+    gap: 9px;
+  }
+
+  .floor-icon {
+    flex-basis: 38px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .floor-title {
+    font-size: 13px;
+  }
+
+  .floor-status {
+    font-size: 8px;
+  }
+
+  .entrance {
+    min-width: 120px;
+    font-size: 9px;
+  }
+}
+
+/* ------------------------------------------------ */
+/* SMALL SCREENS */
+/* ------------------------------------------------ */
+
+@media (max-width: 380px) {
+  .floor-title {
+    font-size: 17px;
+  }
+
+  .floor-windows {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ------------------------------------------------ */
+/* FLOOR AVAILABILITY */
+/* ------------------------------------------------ */
+
+.locked-floor {
+  cursor: not-allowed;
+  filter: saturate(0.45);
+}
+
+.locked-floor .floor-windows {
+  opacity: 0.18;
+}
+
+.locked-floor .floor-icon {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.35);
+  background: rgba(5, 13, 24, 0.75);
+}
+
+.locked-floor .floor-title {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.locked-floor .floor-door {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.available-floor {
+  cursor: pointer;
+}
+
+.available-floor .floor-icon {
+  border-color: rgba(201, 162, 39, 0.7);
+}
+
+.floor-status {
+  margin-top: 5px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.floor-status-open {
+  color: #c9a227;
+}
+
+.floor-status-locked {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.floor-availability {
+  margin-top: 3px;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ------------------------------------------------ */
+/* MAINTENANCE MODAL */
+/* ------------------------------------------------ */
+
+.maintenance-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(2, 9, 20, 0.82);
+  backdrop-filter: blur(5px);
+}
+
+.maintenance-modal {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  padding: 34px 24px 24px;
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  background: linear-gradient(
+    180deg,
+    #122c4c 0%,
+    #0a1d35 100%
+  );
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.maintenance-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.maintenance-icon {
+  display: flex;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  border-radius: 50%;
+  background: rgba(201, 162, 39, 0.08);
+  color: #c9a227;
+}
+
+.maintenance-level {
+  margin-bottom: 8px;
+  color: #c9a227;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+}
+
+.maintenance-modal h2 {
+  margin: 0 auto 14px;
+  max-width: 300px;
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.maintenance-modal p {
+  margin: 0 auto;
+  max-width: 310px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.maintenance-hint {
+  margin-top: 14px !important;
+  color: rgba(255, 255, 255, 0.42) !important;
+  font-size: 12px !important;
+}
+
+.maintenance-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: 100%;
+  height: 48px;
+  min-height: 48px;
+  margin-top: 24px;
+  padding: 0 16px;
+
+  border: 1px solid #c9a227;
+  background: #c9a227;
+  color: #07182f;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  cursor: pointer;
+
+  box-sizing: border-box;
+}
+
+.maintenance-button:active {
+  transform: scale(0.98);
+}
+
+/* ------------------------------------------------ */
+/* FLOOR CONTENT MODAL */
+/* ------------------------------------------------ */
+
+.floor-modal {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 34px 22px 22px;
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  background: linear-gradient(
+    180deg,
+    #122c4c 0%,
+    #0a1d35 100%
+  );
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.floor-modal-icon {
+  display: flex;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  border-radius: 50%;
+  background: rgba(201, 162, 39, 0.08);
+  color: #c9a227;
+}
+
+.floor-modal h2 {
+  margin: 0 auto 12px;
+  max-width: 310px;
+  font-size: 23px;
+  line-height: 1.25;
+}
+
+.floor-modal-intro {
+  margin: 0 auto 20px;
+  max-width: 320px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------ */
+/* R/C INFO */
+/* ------------------------------------------------ */
+
+.ground-info {
+  margin-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+}
+
+.ground-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 15px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ground-info-row > span {
+  width: 30px;
+  flex-shrink: 0;
+  font-size: 19px;
+  text-align: center;
+}
+
+.ground-info-row strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #c9a227;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ground-info-row p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.ground-warning {
+  display: flex;
+  margin-top: 18px;
+  padding: 14px;
+  flex-direction: column;
+  gap: 5px;
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  background: rgba(201, 162, 39, 0.06);
+}
+
+.ground-warning strong {
+  color: #c9a227;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+}
+
+.ground-warning span {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------ */
+/* GROUND FLOOR */
+/* ------------------------------------------------ */
+
+.ground-modal {
+  text-align: left;
+}
+
+.ground-modal > .floor-modal-icon,
+.ground-modal > .maintenance-level,
+.ground-modal > h2,
+.ground-modal > .floor-modal-intro {
+  text-align: center;
+}
+
+.ground-modal > .floor-modal-icon {
+  margin-bottom: 16px;
+}
+
+.ground-modal > h2 {
+  margin-bottom: 10px;
+}
+
+/* ------------------------------------------------ */
+/* SECRET DESTINATION */
+/* ------------------------------------------------ */
+
+.secret-destination {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 24px 0;
+  padding: 18px;
+  border: 1px solid rgba(201, 162, 39, 0.6);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(201, 162, 39, 0.12),
+      rgba(201, 162, 39, 0.03)
+    );
+}
+
+.secret-lock {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: 50%;
+  background: rgba(7, 24, 47, 0.7);
+  font-size: 21px;
+}
+
+.secret-destination > div:last-child {
+  min-width: 0;
+}
+
+.secret-label {
+  display: block;
+  margin-bottom: 3px;
+  color: #c9a227;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+.secret-destination strong {
+  display: block;
+  font-size: 17px;
+}
+
+.secret-destination p {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 11px;
+}
+
+/* ------------------------------------------------ */
+/* SECTIONS */
+/* ------------------------------------------------ */
+
+.ground-section {
+  margin-top: 24px;
+}
+
+.ground-section h3 {
+  margin-bottom: 10px;
+  color: #c9a227;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+/* ------------------------------------------------ */
+/* TRAVEL */
+/* ------------------------------------------------ */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.info-card {
+  display: flex;
+  min-height: 86px;
+  padding: 13px;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.info-card span,
+.accommodation-card span,
+.responsibles span {
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.info-card strong {
+  font-size: 14px;
+}
+
+.info-card small {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+}
+
+/* ------------------------------------------------ */
+/* ACCOMMODATION */
+/* ------------------------------------------------ */
+
+.accommodation-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.accommodation-card > div:not(.accommodation-address) {
+  padding: 13px;
+  background: rgba(7, 24, 47, 0.65);
+}
+
+.accommodation-card span,
+.accommodation-card strong {
+  display: block;
+}
+
+.accommodation-card strong {
+  font-size: 12px;
+}
+
+.accommodation-address {
+  grid-column: 1 / -1;
+  padding: 13px;
+  background: rgba(7, 24, 47, 0.65);
+}
+
+/* ------------------------------------------------ */
+/* RULES */
+/* ------------------------------------------------ */
+
+.rules-card {
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.rules-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.rules-card p + p {
+  margin-top: 9px;
+}
+
+.rules-card strong {
+  color: white;
+}
+
+/* ------------------------------------------------ */
+/* EMERGENCY */
+/* ------------------------------------------------ */
+
+.emergency-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.emergency-card a {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 13px;
+  color: white;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.emergency-card a + a {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.emergency-card span {
+  font-size: 12px;
+}
+
+.emergency-card strong {
+  color: #c9a227;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------ */
+/* RESPONSIBLES */
+/* ------------------------------------------------ */
+
+.responsibles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.responsibles > div {
+  display: flex;
+  padding: 13px;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.responsibles strong {
+  font-size: 15px;
+}
+
+/* ------------------------------------------------ */
+/* MOBILE */
+/* ------------------------------------------------ */
+
+@media (max-width: 360px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .accommodation-card {
+    grid-template-columns: 1fr;
+  }
+
+  .accommodation-address {
+    grid-column: auto;
+  }
+}
+
+/* ========================================================= */
+/* CERVEJEIRA */
+/* ========================================================= */
+
+.beer-modal {
+  border-color: rgba(201, 162, 39, 0.45);
+}
+
+.beer-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 24px 0;
+  padding: 18px;
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(201, 162, 39, 0.14),
+    rgba(13, 35, 64, 0.8)
+  );
+}
+
+.beer-hero-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: rgba(201, 162, 39, 0.12);
+  font-size: 28px;
+}
+
+.beer-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #c9a227;
+}
+
+.beer-hero strong {
+  display: block;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+}
+
+.beer-hero p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* REGRAS */
+
+.beer-rules {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.beer-rule {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.beer-rule span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: rgba(201, 162, 39, 0.12);
+  color: #c9a227;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.beer-rule p {
+  margin: 0;
+  padding-top: 4px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ========================================================= */
+/* RALLY PINTXOS */
+/* ========================================================= */
+
+.pintxo-modal {
+  border-color: rgba(201, 162, 39, 0.45);
+}
+
+.pintxo-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 24px 0;
+  padding: 18px;
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(201, 162, 39, 0.14),
+    rgba(13, 35, 64, 0.8)
+  );
+}
+
+.pintxo-hero-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: rgba(201, 162, 39, 0.12);
+  font-size: 28px;
+}
+
+.pintxo-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #c9a227;
+}
+
+.pintxo-hero strong {
+  display: block;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+}
+
+.pintxo-hero p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* LISTA DAS TASCAS */
+
+.pintxo-stops {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pintxo-stop {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 13px;
+  gap: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.045);
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.pintxo-stop:active {
+  transform: scale(0.98);
+}
+
+.pintxo-stop:hover {
+  background: rgba(201, 162, 39, 0.09);
+  border-color: rgba(201, 162, 39, 0.3);
+}
+
+.pintxo-stop-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(201, 162, 39, 0.12);
+  color: #c9a227;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.pintxo-stop-info {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pintxo-stop-info strong {
+  font-size: 14px;
+}
+
+.pintxo-stop-info span {
+  overflow: hidden;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pintxo-stop-arrow {
+  color: #c9a227;
+  font-size: 20px;
+}
+
+/* MODAL DA TASCA */
+
+.pintxo-stop-modal {
+  text-align: center;
+}
+
+.pintxo-stop-big-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  margin: 4px auto 14px;
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  border-radius: 18px;
+  background: rgba(201, 162, 39, 0.1);
+  color: #c9a227;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.stop-detail,
+.stop-rule,
+.stop-penalty {
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 14px;
+  text-align: left;
+}
+
+.stop-detail {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.stop-rule {
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  background: rgba(201, 162, 39, 0.08);
+}
+
+.stop-penalty {
+  border: 1px solid rgba(220, 80, 80, 0.25);
+  background: rgba(220, 80, 80, 0.08);
+}
+
+.stop-detail span,
+.stop-rule span,
+.stop-penalty span {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.stop-detail span {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.stop-rule span {
+  color: #c9a227;
+}
+
+.stop-penalty span {
+  color: rgba(255, 130, 130, 0.9);
+}
+
+.stop-detail strong,
+.stop-rule strong,
+.stop-penalty strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.maps-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 14px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: 12px;
+  background: rgba(201, 162, 39, 0.1);
+  color: #c9a227;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+/* ========================================================= */
+/* ROOFTOP — PARTY BOAT */
+/* ========================================================= */
+
+.boat-modal {
+  border-color: rgba(201, 162, 39, 0.5);
+}
+
+.boat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  margin: 4px auto 14px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: 18px;
+  background: rgba(201, 162, 39, 0.1);
+  color: #c9a227;
+}
+
+.boat-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 24px 0;
+  padding: 18px;
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  border-radius: 16px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(201, 162, 39, 0.14),
+      rgba(13, 35, 64, 0.85)
+    );
+}
+
+.boat-hero-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: rgba(201, 162, 39, 0.12);
+  font-size: 30px;
+}
+
+.boat-label {
+  display: block;
+  margin-bottom: 4px;
+  color: #c9a227;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.boat-hero strong {
+  display: block;
+  font-size: 19px;
+  letter-spacing: 0.04em;
+}
+
+.boat-hero p {
+  margin: 4px 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* ========================================================= */
+/* REGRAS DO BARCO */
+/* ========================================================= */
+
+.boat-rules {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.boat-rule {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.boat-rule > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: rgba(201, 162, 39, 0.12);
+  font-size: 17px;
+}
+
+.boat-rule p {
+  margin: 0;
+  padding-top: 5px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.boat-warning {
+  margin-top: 24px;
+}
+
+ /* ========================================================= */
+/* CAVE — CASINO ILEGAL */
+/* ========================================================= */
+
+.casino-modal {
+  border-color: rgba(201, 162, 39, 0.5);
+}
+
+.casino-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  margin: 4px auto 14px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: 18px;
+  background: rgba(201, 162, 39, 0.1);
+  color: #c9a227;
+}
+
+.casino-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 24px 0;
+  padding: 18px;
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  border-radius: 16px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(201, 162, 39, 0.14),
+      rgba(13, 35, 64, 0.9)
+    );
+}
+
+.casino-hero-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: rgba(201, 162, 39, 0.12);
+  font-size: 30px;
+}
+
+.casino-label {
+  display: block;
+  margin-bottom: 4px;
+  color: #c9a227;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.casino-hero strong {
+  display: block;
+  font-size: 19px;
+  letter-spacing: 0.04em;
+}
+
+.casino-hero p {
+  margin: 4px 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* ========================================================= */
+/* PORTA SECRETA */
+/* ========================================================= */
+
+.casino-access {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.casino-access-lock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: rgba(201, 162, 39, 0.1);
+  font-size: 22px;
+}
+
+.casino-access span {
+  display: block;
+  margin-bottom: 3px;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.casino-access strong {
+  font-size: 16px;
+}
+
+/* ========================================================= */
+/* BOTÃO JPP LEAGUE */
+/* ========================================================= */
+
+.casino-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  margin-top: 14px;
+  padding: 0 18px;
+  border: 1px solid rgba(201, 162, 39, 0.55);
+  border-radius: 13px;
+  background: #c9a227;
+  color: #07182f;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition:
+    transform 0.15s ease,
+    opacity 0.2s ease;
+}
+
+.casino-button:active {
+  transform: scale(0.98);
+}
+
+.casino-button:hover {
+  opacity: 0.9;
+}
+
+/* ========================================================= */
+/* PLACEHOLDER */
+/* ========================================================= */
+
+.casino-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 14px;
+  padding: 18px;
+  border: 1px dashed rgba(201, 162, 39, 0.35);
+  border-radius: 13px;
+  background: rgba(201, 162, 39, 0.05);
+  text-align: center;
+}
+
+.casino-placeholder > span {
+  margin-bottom: 8px;
+  font-size: 24px;
+}
+
+.casino-placeholder p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.casino-placeholder small {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.casino-placeholder code {
+  color: #c9a227;
+}
+
+/* ========================================================= */
+/* AVISO */
+/* ========================================================= */
+
+.casino-warning {
+  margin-top: 22px;
+}
+
+.accommodation-card .maintenance-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+
+  width: 100% !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  margin-top: 24px !important;
+  padding: 0 16px !important;
+
+  border: 1px solid #c9a227 !important;
+  background: #c9a227 !important;
+  color: #07182f !important;
+
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.18em !important;
+  text-decoration: none !important;
+  text-transform: none !important;
+
+  box-sizing: border-box !important;
+}
+
+.accommodation-card .maintenance-button span {
+  display: inline !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  color: #07182f !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.18em !important;
+}
+
+/* =========================================================
+   JPP PRÉDIO — RALLY PINTXOS
+   CSS ESPECÍFICO DA PÁGINA
+   ========================================================= */
+
+
+/* =========================================================
+   VARIÁVEIS
+   ========================================================= */
+
+.rally-page {
+  --navy: #07182f;
+  --building: #10294a;
+  --building-dark: #0b203b;
+  --gold: #c9a227;
+  --gold-light: #e1c45a;
+  --window: #173b62;
+  --street: #050d18;
+
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      180deg,
+      #16365d 0%,
+      #10294a 22%,
+      #10294a 65%,
+      #0b203b 100%
+    );
+
+  color: white;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  overflow-x: hidden;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.rally-header {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 62px;
+
+  padding: 10px 18px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+
+  background: rgba(11, 32, 59, 0.94);
+
+  backdrop-filter: blur(10px);
+
+  z-index: 10;
+}
+
+.back-button {
+  display: inline-flex;
+
+  align-items: center;
+  gap: 7px;
+
+  min-height: 40px;
+
+  padding: 0 9px;
+
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+
+  text-decoration: none;
+
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+.back-button:hover {
+  color: white;
+
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.rally-header-title {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 3px;
+}
+
+.rally-header-title span {
+  color: var(--gold);
+
+  font-size: 7px;
+  font-weight: 800;
+
+  letter-spacing: 0.18em;
+}
+
+.rally-header-title strong {
+  color: white;
+
+  font-size: 11px;
+  font-weight: 900;
+
+  letter-spacing: 0.08em;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.rally-hero {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  padding: 64px 20px 48px;
+
+  text-align: center;
+}
+
+.rally-hero-icon {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 74px;
+  height: 74px;
+
+  margin-bottom: 22px;
+
+  border: 1px solid rgba(201, 162, 39, 0.45);
+
+  background: rgba(201, 162, 39, 0.06);
+
+  color: var(--gold);
+}
+
+.rally-kicker {
+  color: var(--gold);
+
+  font-size: 8px;
+  font-weight: 900;
+
+  letter-spacing: 0.22em;
+}
+
+.rally-hero h1 {
+  margin: 10px 0 0;
+
+  color: white;
+
+  font-size: clamp(38px, 7vw, 64px);
+  font-weight: 900;
+
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+
+.rally-hero p {
+  max-width: 500px;
+
+  margin: 22px auto 0;
+
+  color: rgba(255, 255, 255, 0.58);
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   REGRAS
+   ========================================================= */
+
+.rally-rules {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+
+  max-width: 900px;
+
+  margin: 0 auto;
+
+  padding: 0 16px;
+}
+
+.rally-rule {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 14px;
+
+  padding: 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.rally-rule > svg {
+  flex-shrink: 0;
+
+  margin-top: 2px;
+
+  color: var(--gold);
+}
+
+.rally-rule > div {
+  min-width: 0;
+}
+
+.rally-rule span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--gold);
+
+  font-size: 8px;
+  font-weight: 900;
+
+  letter-spacing: 0.17em;
+}
+
+.rally-rule p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.68);
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   TÍTULOS DE SECÇÃO
+   ========================================================= */
+
+.section-heading {
+  margin-bottom: 15px;
+}
+
+.section-heading span {
+  display: block;
+
+  color: var(--gold);
+
+  font-size: 8px;
+  font-weight: 900;
+
+  letter-spacing: 0.18em;
+}
+
+.section-heading h2 {
+  margin: 5px 0 0;
+
+  color: white;
+
+  font-size: 23px;
+  font-weight: 800;
+
+  line-height: 1.1;
+}
+
+
+/* =========================================================
+   MAPA
+   ========================================================= */
+
+.rally-map-section {
+  max-width: 1000px;
+
+  margin: 0 auto;
+
+  padding: 46px 16px 0;
+}
+
+.rally-map-card {
+  overflow: hidden;
+
+  border: 1px solid rgba(201, 162, 39, 0.35);
+
+  background: var(--building);
+}
+
+.rally-map {
+  width: 100%;
+  height: 430px;
+}
+
+.rally-map-loading {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 430px;
+
+  background: var(--building);
+
+  color: rgba(255, 255, 255, 0.5);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+
+/* Leaflet */
+
+.rally-map .leaflet-container {
+  width: 100%;
+  height: 100%;
+
+  background: var(--building);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+.rally-map .leaflet-control-zoom {
+  overflow: hidden;
+
+  border: 1px solid rgba(201, 162, 39, 0.5) !important;
+
+  border-radius: 0 !important;
+}
+
+.rally-map .leaflet-control-zoom a {
+  width: 30px !important;
+  height: 30px !important;
+
+  background: var(--navy) !important;
+
+  color: var(--gold) !important;
+
+  border-bottom:
+    1px solid
+    rgba(201, 162, 39, 0.25) !important;
+
+  line-height: 30px !important;
+}
+
+.rally-map .leaflet-control-zoom a:last-child {
+  border-bottom: 0 !important;
+}
+
+.rally-map .leaflet-popup-content-wrapper,
+.rally-map .leaflet-popup-tip {
+  background: var(--building);
+
+  color: white;
+}
+
+.rally-map .leaflet-popup-content {
+  margin: 12px 14px;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+.rally-map .leaflet-popup-content strong {
+  color: var(--gold);
+
+  font-size: 12px;
+}
+
+.rally-map .leaflet-popup-content span {
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 11px;
+}
+
+.rally-map .leaflet-popup-close-button {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+.rally-map-marker-wrapper {
+  background: transparent;
+
+  border: 0;
+}
+
+.rally-map-marker {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border:
+    2px solid
+    var(--navy);
+
+  border-radius: 50%;
+
+  background: var(--gold);
+
+  color: var(--navy);
+
+  font-size: 11px;
+  font-weight: 900;
+
+  box-shadow:
+    0 2px 8px
+    rgba(0, 0, 0, 0.45);
+}
+
+.map-hint {
+  margin: 8px 2px 0;
+
+  color: rgba(255, 255, 255, 0.38);
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   ZONAS
+   ========================================================= */
+
+.rally-zones {
+  max-width: 1000px;
+
+  margin: 0 auto;
+
+  padding: 46px 16px 0;
+}
+
+.zones-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+.zone-section {
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.08);
+
+  background:
+    rgba(16, 41, 74, 0.65);
+}
+
+.zone-heading {
+  display: flex;
+
+  align-items: center;
+
+  min-height: 54px;
+
+  padding: 12px 16px;
+
+  border-bottom:
+    1px solid
+    rgba(201, 162, 39, 0.2);
+
+  background:
+    rgba(201, 162, 39, 0.055);
+}
+
+.zone-heading strong {
+  color: white;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 0.06em;
+}
+
+.zone-stops {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.zone-stops .stop-card {
+  display: flex;
+
+  align-items: center;
+
+  width: 100%;
+
+  min-height: 66px;
+
+  padding: 10px 13px;
+
+  border: 0;
+
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.06);
+
+  border-radius: 0;
+
+  background: transparent;
+
+  color: white;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease;
+}
+
+.zone-stops .stop-card:last-child {
+  border-bottom: 0;
+}
+
+.zone-stops .stop-card:hover {
+  background:
+    rgba(201, 162, 39, 0.055);
+}
+
+.zone-stops .stop-card:active {
+  background:
+    rgba(201, 162, 39, 0.1);
+}
+
+.zone-stops .stop-number {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  margin-right: 12px;
+
+  flex-shrink: 0;
+
+  border:
+    1px solid
+    rgba(201, 162, 39, 0.5);
+
+  border-radius: 50%;
+
+  background:
+    rgba(201, 162, 39, 0.08);
+
+  color: var(--gold);
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.zone-stops .stop-content {
+  min-width: 0;
+
+  flex: 1;
+}
+
+.zone-stops .stop-content > strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: white;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  line-height: 1.25;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+
+.zone-stops .stop-location {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+
+  margin-top: 5px;
+
+  overflow: hidden;
+
+  color: rgba(255, 255, 255, 0.38);
+
+  font-size: 10px;
+
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+
+.zone-stops .stop-location svg {
+  flex-shrink: 0;
+
+  color: var(--gold);
+}
+
+.zone-stops .stop-arrow {
+  margin-left: 12px;
+
+  flex-shrink: 0;
+
+  color: rgba(255, 255, 255, 0.35);
+
+  font-size: 19px;
+
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.zone-stops .stop-card:hover .stop-arrow {
+  color: var(--gold);
+
+  transform: translateX(2px);
+}
+
+
+/* =========================================================
+   AVISO
+   ========================================================= */
+
+.rally-warning {
+  max-width: 968px;
+
+  margin: 46px auto 0;
+
+  padding: 20px;
+
+  border:
+    1px solid
+    rgba(201, 162, 39, 0.25);
+
+  background:
+    rgba(201, 162, 39, 0.045);
+}
+
+.rally-warning strong {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: var(--gold);
+
+  font-size: 9px;
+  font-weight: 900;
+
+  letter-spacing: 0.13em;
+}
+
+.rally-warning p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.58);
+
+  font-size: 10px;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.rally-footer {
+  display: flex;
+
+  justify-content: center;
+
+  padding: 45px 16px 55px;
+}
+
+.rally-home-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  min-height: 44px;
+
+  padding: 0 16px;
+
+  border:
+    1px solid
+    rgba(201, 162, 39, 0.3);
+
+  color: rgba(255, 255, 255, 0.55);
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+
+  text-decoration: none;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.rally-home-link:hover {
+  background:
+    rgba(201, 162, 39, 0.06);
+
+  color: white;
+}
+
+
+/* =========================================================
+   MODAL / POPUP
+   ========================================================= */
+
+.modal-backdrop {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background:
+    rgba(0, 0, 0, 0.78);
+
+  backdrop-filter: blur(7px);
+
+  animation:
+    modalBackdropIn
+    0.18s
+    ease-out;
+}
+
+.rally-stop-modal {
+  position: relative;
+
+  width: min(100%, 430px);
+
+  max-height:
+    calc(100dvh - 40px);
+
+  overflow-y: auto;
+
+  padding: 30px 24px 24px;
+
+  border:
+    1px solid
+    rgba(201, 162, 39, 0.4);
+
+  border-radius: 4px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(16, 41, 74, 0.98),
+      rgba(7, 24, 47, 0.99)
+    );
+
+  box-shadow:
+    0 25px 80px
+    rgba(0, 0, 0, 0.65),
+    0 0 0 1px
+    rgba(255, 255, 255, 0.025);
+
+  animation:
+    modalIn
+    0.22s
+    ease-out;
+
+  overscroll-behavior: contain;
+}
+
+.modal-close {
+  position: absolute;
+
+  top: 10px;
+  right: 12px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.55);
+
+  font-size: 28px;
+  font-weight: 300;
+
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: white;
+}
+
+.stop-modal-number {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 52px;
+  height: 52px;
+
+  margin-bottom: 16px;
+
+  border-radius: 50%;
+
+  background: var(--gold);
+
+  color: var(--navy);
+
+  font-size: 17px;
+  font-weight: 900;
+
+  box-shadow:
+    0 5px 20px
+    rgba(0, 0, 0, 0.3);
+}
+
+.modal-kicker {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--gold);
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 0.18em;
+}
+
+.rally-stop-modal h2 {
+  margin: 0 38px 24px 0;
+
+  color: white;
+
+  font-size: 25px;
+  font-weight: 800;
+
+  line-height: 1.12;
+}
+
+.stop-detail {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 13px;
+
+  margin-bottom: 12px;
+
+  padding: 14px;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.07);
+
+  background:
+    rgba(255, 255, 255, 0.025);
+}
+
+.detail-icon {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  border:
+    1px solid
+    rgba(201, 162, 39, 0.3);
+
+  color: var(--gold);
+}
+
+.stop-detail > div:last-child {
+  min-width: 0;
+}
+
+.stop-detail span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: rgba(255, 255, 255, 0.38);
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 0.15em;
+}
+
+.stop-detail strong {
+  display: block;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  font-size: 13px;
+
+  line-height: 1.45;
+}
+
+.rule-detail {
+  margin-bottom: 14px;
+
+  border-color:
+    rgba(201, 162, 39, 0.18);
+
+  background:
+    rgba(201, 162, 39, 0.045);
+}
+
+.penalty-detail {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin: 18px 0;
+
+  padding: 13px 15px;
+
+  border:
+    1px solid
+    rgba(201, 162, 39, 0.28);
+
+  background:
+    rgba(201, 162, 39, 0.07);
+}
+
+.penalty-detail span {
+  color: rgba(255, 255, 255, 0.5);
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 0.14em;
+}
+
+.penalty-detail strong {
+  color: var(--gold);
+
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.maps-button,
+.modal-button {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  min-height: 48px;
+
+  border:
+    1px solid
+    rgba(201, 162, 39, 0.45);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.maps-button {
+  gap: 9px;
+
+  background: var(--gold);
+
+  color: var(--navy);
+}
+
+.maps-button:hover {
+  background: var(--gold-light);
+}
+
+.modal-button {
+  margin-top: 9px;
+
+  background: transparent;
+
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.modal-button:hover {
+  background:
+    rgba(255, 255, 255, 0.04);
+
+  color: white;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+   ========================================================= */
+
+@keyframes modalBackdropIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(15px)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .rally-page {
+    width: 100%;
+
+    overflow-x: hidden;
+  }
+
+
+  /* ---------------------------------------------------------
+     HEADER
+     --------------------------------------------------------- */
+
+  .rally-header {
+    min-height: 58px;
+
+    padding:
+      max(10px, env(safe-area-inset-top))
+      14px
+      10px;
+  }
+
+  .back-button {
+    min-height: 40px;
+
+    padding: 0 8px;
+  }
+
+  .rally-header-title {
+    max-width: 55%;
+  }
+
+  .rally-header-title strong {
+    overflow: hidden;
+
+    font-size: 10px;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+  }
+
+  .rally-header-title span {
+    font-size: 7px;
+  }
+
+
+  /* ---------------------------------------------------------
+     HERO
+     --------------------------------------------------------- */
+
+  .rally-hero {
+    padding: 42px 20px 34px;
+  }
+
+  .rally-hero-icon {
+    width: 62px;
+    height: 62px;
+
+    margin-bottom: 18px;
+  }
+
+  .rally-kicker {
+    font-size: 7px;
+
+    letter-spacing: 0.17em;
+  }
+
+  .rally-hero h1 {
+    margin-top: 9px;
+
+    font-size:
+      clamp(31px, 10vw, 46px);
+
+    line-height: 0.95;
+  }
+
+  .rally-hero p {
+    max-width: 310px;
+
+    margin-top: 18px;
+
+    font-size: 12px;
+
+    line-height: 1.65;
+  }
+
+
+  /* ---------------------------------------------------------
+     REGRAS
+     --------------------------------------------------------- */
+
+  .rally-rules {
+    grid-template-columns: 1fr;
+
+    gap: 8px;
+
+    padding: 0 14px;
+  }
+
+  .rally-rule {
+    gap: 12px;
+
+    padding: 15px 13px;
+  }
+
+  .rally-rule p {
+    font-size: 11px;
+
+    line-height: 1.55;
+  }
+
+
+  /* ---------------------------------------------------------
+     SECÇÕES
+     --------------------------------------------------------- */
+
+  .section-heading {
+    margin-bottom: 13px;
+  }
+
+  .section-heading span {
+    font-size: 7px;
+  }
+
+  .section-heading h2 {
+    margin-top: 4px;
+
+    font-size: 20px;
+  }
+
+
+  /* ---------------------------------------------------------
+     MAPA
+     --------------------------------------------------------- */
+
+  .rally-map-section {
+    padding:
+      34px
+      14px
+      0;
+  }
+
+  .rally-map-card {
+    border-radius: 2px;
+  }
+
+  .rally-map,
+  .rally-map-loading {
+    height: 52vh;
+
+    min-height: 340px;
+
+    max-height: 470px;
+  }
+
+  .rally-map .leaflet-control-zoom {
+    margin-top: 8px !important;
+
+    margin-right: 8px !important;
+  }
+
+  .map-hint {
+    font-size: 9px;
+  }
+
+
+  /* ---------------------------------------------------------
+     ZONAS
+     --------------------------------------------------------- */
+
+  .rally-zones {
+    padding:
+      34px
+      14px
+      0;
+  }
+
+  .zones-list {
+    gap: 14px;
+  }
+
+  .zone-heading {
+    min-height: 50px;
+
+    padding: 11px 13px;
+  }
+
+  .zone-heading strong {
+    font-size: 11px;
+  }
+
+  .zone-stops .stop-card {
+    min-height: 64px;
+
+    padding: 11px 10px;
+  }
+
+  .zone-stops .stop-number {
+    width: 34px;
+    height: 34px;
+
+    margin-right: 10px;
+  }
+
+  .zone-stops .stop-content > strong {
+    font-size: 12px;
+  }
+
+  .zone-stops .stop-location {
+    margin-top: 4px;
+
+    font-size: 9px;
+  }
+
+  .zone-stops .stop-arrow {
+    margin-left: 8px;
+
+    font-size: 18px;
+  }
+
+
+  /* ---------------------------------------------------------
+     AVISO
+     --------------------------------------------------------- */
+
+  .rally-warning {
+    margin:
+      30px
+      14px
+      0;
+
+    padding: 18px 15px;
+  }
+
+  .rally-warning p {
+    font-size: 10px;
+
+    line-height: 1.6;
+  }
+
+
+  /* ---------------------------------------------------------
+     FOOTER
+     --------------------------------------------------------- */
+
+  .rally-footer {
+    padding:
+      34px
+      14px
+      max(30px, env(safe-area-inset-bottom));
+  }
+
+  .rally-home-link {
+    width: 100%;
+
+    justify-content: center;
+  }
+
+
+  /* ---------------------------------------------------------
+     MODAL MOBILE
+     --------------------------------------------------------- */
+
+  .modal-backdrop {
+    align-items: flex-end;
+
+    padding: 0;
+
+    background:
+      rgba(0, 0, 0, 0.72);
+  }
+
+  .rally-stop-modal {
+    width: 100%;
+
+    max-height: 88dvh;
+
+    overflow-y: auto;
+
+    padding:
+      25px
+      18px
+      max(
+        18px,
+        env(safe-area-inset-bottom)
+      );
+
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+
+    border-radius:
+      18px
+      18px
+      0
+      0;
+
+    animation:
+      modalMobileIn
+      0.22s
+      ease-out;
+  }
+
+  .rally-stop-modal::before {
+    content: "";
+
+    display: block;
+
+    width: 38px;
+    height: 4px;
+
+    margin:
+      -10px
+      auto
+      19px;
+
+    border-radius: 10px;
+
+    background:
+      rgba(255, 255, 255, 0.2);
+  }
+
+  .modal-close {
+    top: 11px;
+    right: 11px;
+
+    width: 40px;
+    height: 40px;
+  }
+
+  .stop-modal-number {
+    width: 46px;
+    height: 46px;
+
+    margin-bottom: 13px;
+
+    font-size: 15px;
+  }
+
+  .modal-kicker {
+    font-size: 7px;
+  }
+
+  .rally-stop-modal h2 {
+    margin-bottom: 19px;
+
+    font-size: 22px;
+  }
+
+  .stop-detail {
+    gap: 10px;
+
+    margin-bottom: 9px;
+
+    padding: 12px;
+  }
+
+  .detail-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .stop-detail strong {
+    font-size: 12px;
+  }
+
+  .penalty-detail {
+    margin: 14px 0;
+
+    padding: 12px;
+  }
+
+  .maps-button,
+  .modal-button {
+    min-height: 50px;
+  }
+}
+
+
+/* =========================================================
+   MODAL MOBILE ANIMATION
+   ========================================================= */
+
+@keyframes modalMobileIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(100%);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+/* =========================================================
+   ECRÃS MUITO PEQUENOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .rally-hero {
+    padding-top: 34px;
+  }
+
+  .rally-hero h1 {
+    font-size: 30px;
+  }
+
+  .rally-hero p {
+    font-size: 11px;
+  }
+
+  .zone-stops .stop-content > strong {
+    font-size: 11px;
+  }
+
+  .zone-stops .stop-location {
+    font-size: 8px;
+  }
+
+  .rally-stop-modal {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
